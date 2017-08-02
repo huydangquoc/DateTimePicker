@@ -9,27 +9,27 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    @IBOutlet weak var item: UINavigationItem!
-
-    @IBAction func showDateTimePicker(sender: AnyObject) {
-        let min = Date()
-        let max = Date().addingTimeInterval(60 * 60 * 24 * 4)
-        let picker = DateTimePicker.show(minimumDate: min, maximumDate: max)
-        picker.highlightColor = UIColor(red: 255.0/255.0, green: 138.0/255.0, blue: 138.0/255.0, alpha: 1)
-        picker.darkColor = UIColor.darkGray
-        picker.doneButtonTitle = "!! DONE DONE !!"
-        picker.todayButtonTitle = "Today"
-        picker.is12HourFormat = true
-        picker.dateFormat = "hh:mm aa dd/MM/YYYY"
-//        picker.isDatePickerOnly = true
-        picker.completionHandler = { date in
-            let formatter = DateFormatter()
-            formatter.dateFormat = "hh:mm aa dd/MM/YYYY"
-            self.item.title = formatter.string(from: date)
-        }
-        
+  
+  @IBOutlet weak var item: UINavigationItem!
+  
+  @IBAction func showDateTimePicker(sender: AnyObject) {
+    let min = Date()
+    let max = Calendar.current.date(byAdding: .year, value: 1, to: min)
+    let picker = DateTimePicker.show(minimumDate: min, maximumDate: max)
+    picker.backgroundViewColor = .clear
+    picker.daysBackgroundColor = .clear
+    picker.highlightColor = UIColor.black.withAlphaComponent(0.87)
+    picker.darkColor = UIColor.black.withAlphaComponent(0.87)
+    picker.cancelButtonTitle = "Cancel"
+    picker.doneButtonTitle = "DONE"
+    picker.todayButtonTitle = "Today"
+    picker.is12HourFormat = true
+    picker.dateFormat = "EEE, MMMM d"
+    picker.isDatePickerOnly = true
+    picker.completionHandler = { date in
+      let formatter = DateFormatter()
+      formatter.dateFormat = "hh:mm aa dd/MM/YYYY"
+      self.item.title = formatter.string(from: date)
     }
-
+  }
 }
-
